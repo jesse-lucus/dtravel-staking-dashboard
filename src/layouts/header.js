@@ -16,7 +16,7 @@ const Header = () => {
     useEffect(() => {
       const getUserdata = async() =>{
         let user = await JSON.parse(localStorage.getItem('user'));
-        if(user.email) {setUsername(user.firstName + user.lastName); setHeader(true);}
+        if(user.email) {setUsername(user.firstName + ' ' + user.lastName); setHeader(true);}
         else setHeader(false);
       }
       getUserdata();
@@ -42,18 +42,21 @@ const Header = () => {
             </Mark>
             <LogoIcon size={"40px"} color="#0B2336" />
             <Box fontSize={"20px"}>DASHBOARD</Box>       
-            <Box display={"flex"} flex="1" alignItems={"center"} width={"100%"} justifyContent={"flex-end"}>
-              <Box
-                  display={"flex"}
-                  justifyContent={"flex-end"}
-                  width={"100%"}
-                  onClick={() => {
-                      logout_handler();
-                  }}
-              >
-                  <CustomButton str={"LOGOUT"} width={"120px"} height={"56px"} color={"#D4EEE9"} bgcolor={"#0B2336"} fsize={"16px"} fweight={"400"} bradius={"100px"}></CustomButton>
+            <Box display={"flex"}  flex="1" width={"100%"} alignItems={"center"} justifyContent={"flex-end"}>
+              <Box paddingRight={"20px"}>{username}</Box>
+              <Box display={"flex"}  justifyContent={"flex-end"}>
+                <Box
+                    display={"flex"}
+                    justifyContent={"flex-end"}
+                    width={"100%"}
+                    onClick={() => {
+                        logout_handler();
+                    }}
+                >
+                    <CustomButton str={"LOGOUT"} width={"120px"} height={"56px"} color={"#D4EEE9"} bgcolor={"#0B2336"} fsize={"16px"} fweight={"400"} bradius={"100px"}></CustomButton>
+                </Box>  
               </Box>  
-            </Box>           
+            </Box>         
         </StyledComponent>
     )
 
