@@ -7,23 +7,9 @@ import CustomButton from "../elements/buttons";
 import { TailSpin } from "react-loader-spinner";
 import { LogoRoundedIcon } from "../elements/icons";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
-import { NotificationContainer, NotificationManager } from "react-notifications";
+import { NotificationManager } from "react-notifications";
 import { API } from '../helpers/api'
 import Cookies from 'universal-cookie';
-
-function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://dTravel.com/">
-          DTRAVEL
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>    
-    );
-  }
-
 
 const Login = () => {
     const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
@@ -46,7 +32,8 @@ const Login = () => {
         const res = await API.login(email, password);
         if(res.message == "Login Success.")
         {
-            cookies.set('token', res.data.token, { path: '/' });
+            localStorage.setItem('user', JSON.stringify(res.data));
+            console.log(res.data);
             navigate("/dashboard"); 
         }
         else window.alert(res.message);

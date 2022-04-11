@@ -13,7 +13,10 @@ import Cookies from 'universal-cookie';
 import { API } from '../helpers/api'
 
 const Dashboard = () => {
+    let navigate = useNavigate();
+
     const [flag_spin_load_free, set_spin_load_free] = useState(false);
+    const [email, setEmail] = useState(null);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0);
     const [title, setTitle] = useState('TRVL APR');
@@ -22,17 +25,21 @@ const Dashboard = () => {
     const [freetrvl, setFTRVL] = useState(0);
     const [modal, setModal] = useState(0);
     const handleClose = () => setOpen(false);
-    const cookies = new Cookies();
+
+
 
     useEffect(() => {
         get_apr();
-        get_cookie();
+        get_email();
       }, [open]);
 
-    
-    const get_cookie = () => {
-        console.log(cookies.get('token'));
+    const get_email = async () => {
+        let user = await JSON.parse(localStorage.getItem('user'));
+        if(!user) navigate("/"); 
+        let user_email = user.email;
+        setEmail(user_email);
     }
+    
     const get_apr = async () => {
         const res = await API.getAPR();
         if(res.message == "Operation success")
@@ -41,12 +48,12 @@ const Dashboard = () => {
             setLPTRVL(parseInt(res.data.lpTrvlStaking));
             setFTRVL(parseInt(res.data.freeTrvlStaking));
         }
-        console.log(res);
     }
 
     const update_apr = async () => {
         const stakingTypes = ["trvlStaking", "lpTrvlStaking", "freeTrvlStaking"];
-        API.setAPR(stakingTypes[modal], value, cookies.get('token'));
+        const token = localStorage.getItem("token");
+        API.setAPR(stakingTypes[modal], value);
         setOpen(false);
         get_apr();
     }
@@ -61,7 +68,8 @@ const Dashboard = () => {
   
     return (
         <>
-        {cookies.get('token') && <>
+        {email && 
+        <>
             <MuiThemeProvider theme={themeLight}>
                 <Box justify-content= {"space-around"}>
                     <StyledComponent sx={{ marginTop: { xs: "64px", sm: "80px" } }}>
@@ -233,8 +241,6 @@ const Dashboard = () => {
             </MuiThemeProvider>
         </>}
         </>
-
-
     );
   };
 

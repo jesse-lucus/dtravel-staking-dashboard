@@ -11,7 +11,7 @@ const login = async (_email, _password) => {
             };
             console.log("body", JSON.stringify(user));
             let res = await fetch(process.env.REACT_APP_API_URL + '/auth/login', requestOptions)
-            let userData = await res.json();
+            let userData = await res.json();  // save user info on redux. 
             console.log(userData);
             return userData;
     } catch (error) {
@@ -60,16 +60,22 @@ const getAPR = async () => {
     }
 }
 
-const setAPR = async (_stakingType, _apr, _token) => {
+const setAPR = async (_stakingType, _apr) => {
     try {
+        let user = await JSON.parse(localStorage.getItem('user'));
+        let _token = user.token;
         let apr = {
             stakingType: _stakingType,
             apr: _apr,
             token: _token,
-            };        
+            };
+        let header = {
+            'Content-Type': 'application/json',
+            'Authorization': 'bearer ' + _token,
+            };
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: header,
             body: JSON.stringify(apr)
         };
         let res = await fetch(process.env.REACT_APP_API_URL + '/staking/setAPR', requestOptions)
