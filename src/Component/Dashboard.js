@@ -54,7 +54,12 @@ const Dashboard = () => {
         const token = localStorage.getItem("token");
         API.setAPR(stakingTypes[modal], value);
         setOpen(false);
+        await timeout(2000);
         get_apr();
+    }
+
+    function timeout(delay) {
+        return new Promise( res => setTimeout(res, delay) );
     }
 
     const themeLight = createTheme({
