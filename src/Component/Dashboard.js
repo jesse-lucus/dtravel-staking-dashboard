@@ -16,7 +16,7 @@ const Dashboard = () => {
     let navigate = useNavigate();
 
     const [flag_spin_load_free, set_spin_load_free] = useState(false);
-    const [email, setEmail] = useState(null);
+    const [signed, setSigned] = useState(false);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0);
     const [title, setTitle] = useState('TRVL APR');
@@ -36,8 +36,7 @@ const Dashboard = () => {
     const get_email = async () => {
         let user = await JSON.parse(localStorage.getItem('user'));
         if(!user) navigate("/"); 
-        let user_email = user.email;
-        setEmail(user_email);
+        else setSigned(true);
     }
     
     const get_apr = async () => {
@@ -68,20 +67,13 @@ const Dashboard = () => {
   
     return (
         <>
-        {email && 
+        {signed && 
         <>
             <MuiThemeProvider theme={themeLight}>
                 <Box justify-content= {"space-around"}>
                     <StyledComponent sx={{ marginTop: { xs: "64px", sm: "80px" } }}>
                         <MainPart>
                             <Box display={"grid"} width={"800px"} alignContent={"center"}>
-                                <Box margin={"10px"}>
-                                    <TitleText01>
-                                    <LogoRoundedIcon size="32px" />
-                                        {"\u00a0"}
-                                        {"\u00a0"}Dashboard
-                                    </TitleText01>
-                                </Box>
                                 <Box marginTop={"10%"}>
                                     <Row01 sx={{ display: { xs: "none", sm: "none", md: "flex" } }}>
                                         <Box display={"flex"} flex="1.4" alignItems={"center"}>

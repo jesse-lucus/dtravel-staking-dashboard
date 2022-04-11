@@ -65,6 +65,18 @@ const Register = () => {
                                     {"\u00a0"}Register
                                 </TitleText01>
                             </Box>
+                            <Box display={"flex"}>
+                                    <LeftText01>FirstName: </LeftText01>
+                                    <TextField
+                                    margin="normal"
+                                    required
+                                    id="firstname"
+                                    name="firstname"
+                                    variant="standard"
+                                    autoFocus
+                                    onChange={event => {const { value } = event.target; setFirstName(value)}}
+                                    />
+                                </Box>                               
                             <Box display={"grid"}>
                                 <Box display={"flex"}>
                                     <LeftText01>LastName: </LeftText01>
@@ -77,19 +89,7 @@ const Register = () => {
                                     autoFocus
                                     onChange={event => {const { value } = event.target; setLastName(value)}}
                                     />
-                                </Box>
-                                <Box display={"flex"}>
-                                    <LeftText01>FirstName: </LeftText01>
-                                    <TextField
-                                    margin="normal"
-                                    required
-                                    id="firstname"
-                                    name="firstname"
-                                    variant="standard"
-                                    autoFocus
-                                    onChange={event => {const { value } = event.target; setFirstName(value)}}
-                                    />
-                                </Box>                                
+                                </Box>                             
                                 <Box display={"flex"}>
                                     <LeftText01>Email: </LeftText01>
                                     <TextField

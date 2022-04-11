@@ -16,14 +16,17 @@ const App = () => {
 
   return (
     <>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Login/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/dashboard" element={<Dashboard/>}/>
-          </Routes>
-        </BrowserRouter>
+    <Box maxWidth={"1440px"} width={"100%"} display={"flex"} flexDirection={"column"} alignItems="center" boxSizing={"border-box"} sx={{ px: { xs: "24px", sm: "64px", md: "108px" } }}>
+      <BrowserRouter>
+      <Header></Header>
+        <Routes>
+          <Route path="/" element={<Login/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
+        </Routes>
+      </BrowserRouter>
+    </Box>
     </>
   );
 }

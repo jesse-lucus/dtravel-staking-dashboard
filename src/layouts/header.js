@@ -1,32 +1,60 @@
 import { Box } from "@material-ui/core";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
-import { BiExit } from "react-icons/bi";
+import React, { useState, useEffect } from "react";
+import CustomButton from "../elements/buttons";
 import { LogoIcon, LogoRoundedIcon, ListIcon } from "../elements/icons";
 
+
+
+
 const Header = () => {
-    let navigate = useNavigate();
-    return (
-        <>
-                <LogoIcon size={"40px"} color="#0B2336" />
-                <Box fontSize={"20px"}>TRVL APR DASHBOARD</Box>
-            {/* <StyledComponent>
+  const [username, setUsername] = useState(null);
+  const [header, setHeader] = useState(false);
+  let navigate = useNavigate();
 
-                <Mark
-                display={"flex"}
-                alignItems={"center"}
-                gridGap={"10px"}
-                onClick={() => {
-                    navigate("/");
-                    window.scrollTo(0, 0);
-                    // set_current_tab(0);
-                }}
-                >
+    useEffect(() => {
+      const getUserdata = async() =>{
+        let user = await JSON.parse(localStorage.getItem('user'));
+        if(user.email) {setUsername(user.firstName + user.lastName); setHeader(true);}
+        else setHeader(false);
+      }
+      getUserdata();
+    }, [navigate]);
+    
+    const logout_handler = () => {
+      localStorage.removeItem('user');
+      navigate('/');
+      setHeader(false);
+    }
 
-                </Mark>
-            </StyledComponent> */}
-        </>
+    if (header) return (
+        <StyledComponent>
+            <Mark
+            display={"flex"}
+            alignItems={"center"}
+            gridGap={"10px"}
+            onClick={() => {
+                navigate("/dashboard");
+                window.scrollTo(0, 0);
+            }}
+            >
+            </Mark>
+            <LogoIcon size={"40px"} color="#0B2336" />
+            <Box fontSize={"20px"}>DASHBOARD</Box>       
+            <Box display={"flex"} flex="1" alignItems={"center"} width={"100%"} justifyContent={"flex-end"}>
+              <Box
+                  display={"flex"}
+                  justifyContent={"flex-end"}
+                  width={"100%"}
+                  onClick={() => {
+                      logout_handler();
+                  }}
+              >
+                  <CustomButton str={"LOGOUT"} width={"120px"} height={"56px"} color={"#D4EEE9"} bgcolor={"#0B2336"} fsize={"16px"} fweight={"400"} bradius={"100px"}></CustomButton>
+              </Box>  
+            </Box>           
+        </StyledComponent>
     )
 
 };
