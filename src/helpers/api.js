@@ -10,7 +10,7 @@ const login = async (_email, _password) => {
                 body: JSON.stringify(user)
             };
             console.log("body", JSON.stringify(user));
-            let res = await fetch('http://127.0.0.1:8000/api/auth/login', requestOptions)
+            let res = await fetch(process.env.REACT_APP_API_URL + '/auth/login', requestOptions)
             let userData = await res.json();
             console.log(userData);
             return userData;
@@ -34,7 +34,7 @@ const register = async (_firstName, _lastName, _email, _password) => {
                 body: JSON.stringify(user)
             };
             console.log("body", JSON.stringify(user));
-            let res = await fetch('http://127.0.0.1:8000/api/auth/register', requestOptions)
+            let res = await fetch(process.env.REACT_APP_API_URL + '/auth/register', requestOptions)
             let userData = await res.json();
             console.log(userData);
             return userData;
@@ -50,7 +50,7 @@ const getAPR = async () => {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             };
-            let res = await fetch('http://127.0.0.1:8000/api/staking/getAPR', requestOptions)
+            let res = await fetch(process.env.REACT_APP_API_URL + '/staking/getAPR', requestOptions)
             let userData = await res.json();
             console.log(userData);
             return userData;
@@ -72,7 +72,7 @@ const setAPR = async (_stakingType, _apr, _token) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(apr)
         };
-        let res = await fetch('http://127.0.0.1:8000/api/staking/setAPR', requestOptions)
+        let res = await fetch(process.env.REACT_APP_API_URL + '/staking/setAPR', requestOptions)
         let userData = await res.json();
         console.log(userData);
         return userData;
